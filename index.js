@@ -7,7 +7,7 @@ const app = new Koa();
 const dbName = "DouBanMovies";
 
 const findDoc = (page) => {
-  return new Promise(async (resolve, reject) => {
+  return new Promise((resolve, reject) => {
     client.connect(async (err) => {
       assert.equal(null, err);
       console.log("Connected successfully to server");
@@ -27,7 +27,6 @@ const findDoc = (page) => {
 
 app.use(async (ctx, next) => {
   ctx.set("Access-Control-Allow-Origin", "*");
-  console.log(ctx.url.split("/")[3]);
   // Use connect method to connect to the Server
   const docs = await findDoc(ctx.url.split("/")[3]);
   ctx.body = { status: "success", data: docs };
